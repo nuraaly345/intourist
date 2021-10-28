@@ -21,3 +21,27 @@ class Place(models.Model):
         verbose_name = 'место'
         verbose_name_plural = 'Места'
         ordering = ['name']
+
+class Feedback(models.Model):
+    user = models.ForeignKey(
+        to=User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name='Пользователь'
+    )
+
+    place = models.ForeignKey(
+        to=Place,
+        on_delete=models.CASCADE,
+        verbose_name='Место'
+    )
+
+    text = models.TextField(verbose_name='Текст обратной связи')
+
+    def __str__(self):
+        return self.text[:20]
+
+    class Meta:
+        verbose_name = 'обратная связь'
+        verbose_name_plural = 'Обратные связи'
